@@ -3,19 +3,19 @@
   "info": {
     "title": "analizarCVE",
     "version": "1.0.0",
-    "description": "Analiza un CVE o un término proporcionado por el usuario y devuelve un JSON con datos relacionados."
+    "description": "Analiza un CVE o un término y devuelve un JSON con coincidencias de software en Intune."
   },
   "servers": [
     {
-      "url": "https://defaultdaf02817426f407ea0c2ccbd0ffdde.9b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9a2148b21c174e52854d30204bbee2a6/triggers/manual/paths/invoke?api-version=1"
+      "url": "https://defaultdaf02817426f407ea0c2ccbd0ffdde.9b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9a2148b21c174e52854d30204bbee2a6/triggers/manual/paths/invoke"
     }
   ],
   "paths": {
     "/": {
       "post": {
         "summary": "Analizar CVE",
+        "description": "Envía un parámetro searchKey al flujo Power Automate para analizar un CVE o término.",
         "operationId": "analizarCVE",
-        "description": "Envía searchKey al flujo HTTP para analizar un CVE o un término.",
         "requestBody": {
           "required": true,
           "content": {
@@ -25,7 +25,7 @@
                 "properties": {
                   "searchKey": {
                     "type": "string",
-                    "description": "Texto proporcionado por el usuario para análisis CVE."
+                    "description": "Texto proporcionado por el usuario para análisis CVE, por ejemplo 'CVE-2024-12345' o 'LINE'."
                   }
                 },
                 "required": ["searchKey"]
@@ -35,7 +35,7 @@
         },
         "responses": {
           "200": {
-            "description": "Resultado del análisis del CVE.",
+            "description": "Resultado del análisis del CVE devuelto por Power Automate.",
             "content": {
               "application/json": {
                 "schema": {
