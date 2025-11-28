@@ -2,15 +2,20 @@
   "openapi": "3.0.1",
   "info": {
     "title": "analizarCVE",
-    "description": "Analiza un CVE o término proporcionado por el usuario y devuelve información sobre vulnerabilidades relacionadas y coincidencias de software en Intune.",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "description": "Analiza un CVE o un término proporcionado por el usuario y devuelve un JSON con datos relacionados."
   },
+  "servers": [
+    {
+      "url": "https://defaultdaf02817426f407ea0c2ccbd0ffdde.9b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/9a2148b21c174e52854d30204bbee2a6/triggers/manual/paths/invoke?api-version=1"
+    }
+  ],
   "paths": {
-    "/analizarCVE": {
+    "/": {
       "post": {
-        "summary": "Analiza un CVE y devuelve información relacionada.",
-        "description": "Llama al flujo HTTP en Power Automate para analizar vulnerabilidades CVE basadas en searchKey.",
+        "summary": "Analizar CVE",
         "operationId": "analizarCVE",
+        "description": "Envía searchKey al flujo HTTP para analizar un CVE o un término.",
         "requestBody": {
           "required": true,
           "content": {
@@ -20,7 +25,7 @@
                 "properties": {
                   "searchKey": {
                     "type": "string",
-                    "description": "CVE a analizar o texto relevante del boletín."
+                    "description": "Texto proporcionado por el usuario para análisis CVE."
                   }
                 },
                 "required": ["searchKey"]
@@ -34,37 +39,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "cveTitle": { "type": "string" },
-                    "cveSummary": { "type": "string" },
-                    "cveLink": { "type": "string" },
-                    "publishDate": { "type": "string" },
-                    "matches": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "displayName": { "type": "string" },
-                          "version": { "type": "string" },
-                          "publisher": { "type": "string" },
-                          "deviceCount": { "type": "integer" },
-                          "match": { "type": "boolean" }
-                        }
-                      }
-                    },
-                    "foundMatches": { "type": "string" }
-                  }
+                  "type": "object"
                 }
               }
             }
           }
-        },
-        "servers": [
-          {
-            "url": "YOUR_HTTP_TRIGGER_URL_HERE"
-          }
-        ]
+        }
       }
     }
   }
