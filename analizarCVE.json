@@ -1,0 +1,71 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "analizarCVE",
+    "description": "Analiza un CVE o término proporcionado por el usuario y devuelve información sobre vulnerabilidades relacionadas y coincidencias de software en Intune.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/analizarCVE": {
+      "post": {
+        "summary": "Analiza un CVE y devuelve información relacionada.",
+        "description": "Llama al flujo HTTP en Power Automate para analizar vulnerabilidades CVE basadas en searchKey.",
+        "operationId": "analizarCVE",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "searchKey": {
+                    "type": "string",
+                    "description": "CVE a analizar o texto relevante del boletín."
+                  }
+                },
+                "required": ["searchKey"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Resultado del análisis del CVE.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cveTitle": { "type": "string" },
+                    "cveSummary": { "type": "string" },
+                    "cveLink": { "type": "string" },
+                    "publishDate": { "type": "string" },
+                    "matches": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "displayName": { "type": "string" },
+                          "version": { "type": "string" },
+                          "publisher": { "type": "string" },
+                          "deviceCount": { "type": "integer" },
+                          "match": { "type": "boolean" }
+                        }
+                      }
+                    },
+                    "foundMatches": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "servers": [
+          {
+            "url": "YOUR_HTTP_TRIGGER_URL_HERE"
+          }
+        ]
+      }
+    }
+  }
+}
